@@ -1,6 +1,7 @@
 [package]
 name = "sv-explorer"
 version = "0.1.0"
+edition = "2024"
 
 [lib]
 path = "sv-explorer/src/lib.rs"
@@ -12,3 +13,7 @@ name = "sv-explorer"
 
 [workspace]
 members = ["sv-explorer-args"]
+
+[dependencies]
+lalrpop = "0.22.1"
+sv-parser = "0.13.3"
