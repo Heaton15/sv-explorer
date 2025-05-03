@@ -1,0 +1,14 @@
+[package]
+name = "sv-explorer"
+version = "0.1.0"
+
+[lib]
+path = "sv-explorer/src/lib.rs"
+
+[[bin]]
+path = "sv-explorer/src/main.rs"
+name = "sv-explorer"
+
+
+[workspace]
+members = ["sv-explorer-args"]
