@@ -1,0 +1,27 @@
+use crate::lexer::{Token, ArgumentError};
+use crate::ast::Command;
+
+grammar;
+
+extern {
+  type Error = ArgumentError;
+
+  enum Token {
+    "incdir" => Token::IncludeDir,
+    "define" => Token::Define,
+    "path" => Token::PathContent(<String>),
+    "v" => Token::V,
+    "y" => Token::Y,
+    "/" => Token::Slash,
+    "=" => Token::Equals,
+    "." => Token::Period,
+  }
+}
+pub Command: Command = {
+    "define" <key:"path"> => {
+        Command::Define {define: key, arg: None}
+    },
+    "define" <key:"path"> "=" <value:"path"> => {
+        Command::Define {define: key, arg: Some(value)}
+    },
+}

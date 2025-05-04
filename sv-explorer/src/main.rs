@@ -1,3 +1,4 @@
+use sv_explorer_args::ast::parse;
+
 fn main() {
-    println!("sv-explorer main");
 }

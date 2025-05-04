@@ -13,7 +13,9 @@ name = "sv-explorer"
 
 [workspace]
 members = ["sv-explorer-args"]
+resolver = "3"
 
 [dependencies]
-lalrpop = "0.22.1"
 sv-parser = "0.13.3"
+sv-explorer-args = { path = "./sv-explorer-args/"}
+

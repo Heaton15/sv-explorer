@@ -3,5 +3,7 @@
 -y ../sv/
 -v ../sv/adder.sv
 +incdir+../sv/
-+define+CUSTOM_DEFINE=true
-+define+CUSTOM_DEFINE="a string"
+$EXAMPLE_ENV/sv/
++define+DEFINE1=true
++define+DEFINE2="a string"
++define+DEFINE3
