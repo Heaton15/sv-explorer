@@ -24,4 +24,7 @@ pub Command: Command = {
     "define" <key:"path"> "=" <value:"path"> => {
         Command::Define {define: key, arg: Some(value)}
     },
+    "incdir" <path:"path"> => {
+        Command::Include {directory: path}
+    },
 }

@@ -7,6 +7,7 @@ lalrpop_mod!(pub explorer_args);
 #[derive(Clone, Debug, PartialEq)]
 pub enum Command {
     Define { define: String, arg: Option<String> },
+    Include { directory: String },
 }
 
 pub type CommandParseError = ParseError<(), Token, ArgumentError>;
@@ -29,6 +30,27 @@ mod ast_tests {
             Command::Define {
                 define: "MY_NAME".to_string(),
                 arg: Some("true".to_string())
+            }
+        );
+    }
+    #[test]
+    fn parse_define_no_arg() {
+        let result = parse("+define+I_AM_DEFINED").unwrap();
+        assert_eq!(
+            result,
+            Command::Define {
+                define: "I_AM_DEFINED".to_string(),
+                arg: None,
+            }
+        );
+    }
+    #[test]
+    fn parse_include() {
+        let result = parse("+include+../../path/to/dir/").unwrap();
+        assert_eq!(
+            result,
+            Command::Include {
+                directory: "../../path/to/dir".to_string(),
             }
         );
     }
