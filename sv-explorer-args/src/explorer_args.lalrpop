@@ -12,9 +12,7 @@ extern {
     "path" => Token::PathContent(<String>),
     "v" => Token::V,
     "y" => Token::Y,
-    "/" => Token::Slash,
     "=" => Token::Equals,
-    "." => Token::Period,
   }
 }
 pub Command: Command = {

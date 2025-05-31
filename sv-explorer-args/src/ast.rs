@@ -45,12 +45,12 @@ mod ast_tests {
         );
     }
     #[test]
-    fn parse_include() {
-        let result = parse("+include+../../path/to/dir/").unwrap();
+    fn parse_incdir() {
+        let result = parse("+incdir+../../path/to/dir/").unwrap();
         assert_eq!(
             result,
             Command::Include {
-                directory: "../../path/to/dir".to_string(),
+                directory: "../../path/to/dir/".to_string(),
             }
         );
     }

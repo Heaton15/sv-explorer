@@ -19,13 +19,9 @@ pub enum Token {
     V,
     #[token("-y")]
     Y,
-    #[token("/")]
-    Slash,
     #[token("=")]
     Equals,
-    #[token(".")]
-    Period,
-    #[regex("[_a-zA-Z][._0-9a-zA-Z]*", |lex| lex.slice().to_string())]
+    #[regex("[./_a-zA-Z][._0-9a-zA-Z/]*", |lex| lex.slice().to_string())]
     PathContent(String),
 }
 
@@ -77,21 +73,15 @@ mod lexer_tests {
     }
 
     #[test]
-    fn parse_include() {
+    fn parse_incdir() {
         let mut lex = Token::lexer("+incdir+../path/to/include_dir/");
         assert_eq!(lex.next(), Some(Ok(Token::IncludeDir)));
-        assert_eq!(lex.next(), Some(Ok(Token::Period)));
-        assert_eq!(lex.next(), Some(Ok(Token::Period)));
-        assert_eq!(lex.next(), Some(Ok(Token::Slash)));
-        assert_eq!(lex.next(), Some(Ok(Token::PathContent("path".to_string()))));
-        assert_eq!(lex.next(), Some(Ok(Token::Slash)));
-        assert_eq!(lex.next(), Some(Ok(Token::PathContent("to".to_string()))));
-        assert_eq!(lex.next(), Some(Ok(Token::Slash)));
         assert_eq!(
             lex.next(),
-            Some(Ok(Token::PathContent("include_dir".to_string())))
+            Some(Ok(Token::PathContent(
+                "../path/to/include_dir/".to_string()
+            )))
         );
-        assert_eq!(lex.next(), Some(Ok(Token::Slash)));
         assert_eq!(lex.next(), None)
     }
 
@@ -110,16 +100,7 @@ mod lexer_tests {
     fn parse_v() {
         let mut lex = Token::lexer("-v ./path/to/file.v");
         assert_eq!(lex.next(), Some(Ok(Token::V)));
-        assert_eq!(lex.next(), Some(Ok(Token::Period)));
-        assert_eq!(lex.next(), Some(Ok(Token::Slash)));
-        assert_eq!(lex.next(), Some(Ok(Token::PathContent("path".to_string()))));
-        assert_eq!(lex.next(), Some(Ok(Token::Slash)));
-        assert_eq!(lex.next(), Some(Ok(Token::PathContent("to".to_string()))));
-        assert_eq!(lex.next(), Some(Ok(Token::Slash)));
-        assert_eq!(
-            lex.next(),
-            Some(Ok(Token::PathContent("file.v".to_string())))
-        );
+        assert_eq!(lex.next(), Some(Ok(Token::PathContent("./path/to/file.v".to_string()))));
         assert_eq!(lex.next(), None)
     }
 
@@ -127,27 +108,14 @@ mod lexer_tests {
     fn parse_y() {
         let mut lex = Token::lexer("-y /path/to/dir");
         assert_eq!(lex.next(), Some(Ok(Token::Y)));
-        assert_eq!(lex.next(), Some(Ok(Token::Slash)));
-        assert_eq!(lex.next(), Some(Ok(Token::PathContent("path".to_string()))));
-        assert_eq!(lex.next(), Some(Ok(Token::Slash)));
-        assert_eq!(lex.next(), Some(Ok(Token::PathContent("to".to_string()))));
-        assert_eq!(lex.next(), Some(Ok(Token::Slash)));
-        assert_eq!(lex.next(), Some(Ok(Token::PathContent("dir".to_string()))));
+        assert_eq!(lex.next(), Some(Ok(Token::PathContent("/path/to/dir".to_string()))));
         assert_eq!(lex.next(), None)
     }
 
     #[test]
     fn parse_full_path_to_file() {
         let mut lex = Token::lexer("/path/to/file.v");
-        assert_eq!(lex.next(), Some(Ok(Token::Slash)));
-        assert_eq!(lex.next(), Some(Ok(Token::PathContent("path".to_string()))));
-        assert_eq!(lex.next(), Some(Ok(Token::Slash)));
-        assert_eq!(lex.next(), Some(Ok(Token::PathContent("to".to_string()))));
-        assert_eq!(lex.next(), Some(Ok(Token::Slash)));
-        assert_eq!(
-            lex.next(),
-            Some(Ok(Token::PathContent("file.v".to_string())))
-        );
+        assert_eq!(lex.next(), Some(Ok(Token::PathContent("/path/to/file.v".to_string()))));
         assert_eq!(lex.next(), None)
     }
 }
