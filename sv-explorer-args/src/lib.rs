@@ -47,3 +47,4 @@ Use the `-y` flag to pass in verilog library directories to search
 
 pub mod ast;
 pub mod lexer;
+pub use crate::ast::parse;

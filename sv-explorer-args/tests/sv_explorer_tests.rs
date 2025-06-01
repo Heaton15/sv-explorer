@@ -1,6 +1,5 @@
 use std::path::Path;
-
-use sv_explorer_args::ast::parse;
+use sv_explorer_args::parse;
 
 #[test]
 fn parse_filelist() {
