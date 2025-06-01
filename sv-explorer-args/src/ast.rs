@@ -1,5 +1,4 @@
 use std::{
-    collections::HashMap,
     fs::File,
     io::{self, BufRead, BufReader, Lines},
     path::Path,
@@ -25,9 +24,10 @@ pub enum Command {
 }
 
 /// Container of parsed defines
-struct DefineArgs {
-    define: String,
-    arg: Option<String>,
+#[derive(Debug, PartialEq)]
+pub struct DefineArgs {
+    pub define: String,
+    pub arg: Option<String>,
 }
 
 impl DefineArgs {
@@ -40,8 +40,9 @@ impl DefineArgs {
 }
 
 /// Container of parsed include directories
-struct IncludeArgs {
-    include_dir: String,
+#[derive(Debug, PartialEq)]
+pub struct IncludeArgs {
+    pub include_dir: String,
 }
 
 impl IncludeArgs {
@@ -53,8 +54,9 @@ impl IncludeArgs {
 }
 
 /// Container of parsed SV files
-struct FileArgs {
-    file: String,
+#[derive(Debug, PartialEq)]
+pub struct FileArgs {
+    pub file: String,
 }
 
 impl FileArgs {
@@ -64,13 +66,13 @@ impl FileArgs {
 }
 
 /// Container for all parsed types
-pub struct Args {
-    defines: Vec<DefineArgs>,
-    includes: Vec<IncludeArgs>,
-    files: Vec<FileArgs>,
+pub struct SvParsedArgs {
+    pub defines: Vec<DefineArgs>,
+    pub includes: Vec<IncludeArgs>,
+    pub files: Vec<FileArgs>,
 }
 
-impl Args {
+impl SvParsedArgs {
     fn new() -> Self {
         Self {
             defines: Vec::new(),
@@ -81,11 +83,11 @@ impl Args {
 }
 
 /// Parses a filelist.f and returns a database of files, defines, and includes that can be parsed
-pub fn parse(filelist: &Path) -> Args {
+pub fn parse(filelist: &Path) -> SvParsedArgs {
     let lines = read_filelist(filelist)
         .unwrap_or_else(|e| panic!("Error<{}> Failed to read {:?}", e, filelist));
 
-    let mut args = Args::new();
+    let mut args = SvParsedArgs::new();
 
     lines.for_each(|l| match l {
         Ok(curr_line) => {

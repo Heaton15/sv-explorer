@@ -10,7 +10,6 @@ path = "sv-explorer/src/lib.rs"
 path = "sv-explorer/src/main.rs"
 name = "sv-explorer"
 
-
 [workspace]
 members = ["sv-explorer-args"]
 resolver = "3"
@@ -18,4 +17,3 @@ resolver = "3"
 [dependencies]
 sv-parser = "0.13.3"
 sv-explorer-args = { path = "./sv-explorer-args/"}
-
