@@ -1,6 +1,6 @@
 /*!
 Lexer and Parser to capture SystemVerilog includes, defines, and file inputs for parsing.
-All of the arguments are captured in a single filelist, such as `filelist.f`. This file can contain
+All of the arguments are captured in a single file list, such as `filelist.f`. This file can contain
 common dash flags that various EDA tools support.
 
 Relative paths are evaluated from the location of the input file.

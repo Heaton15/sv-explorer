@@ -26,9 +26,12 @@ pub Command: Command = {
         Command::Include {directory: path}
     },
     "v" <path:"path"> => {
-        Command::V {file: path}
+        Command::V {library_file: path}
     },
     "y" <path:"path"> => {
-        Command::Y {directory: path}
+        Command::Y {library_dir: path}
+    },
+    <path:"path"> => {
+        Command::File{file: path}
     },
 }
