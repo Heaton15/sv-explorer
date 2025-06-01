@@ -21,6 +21,8 @@ pub enum Token {
     Y,
     #[token("=")]
     Equals,
+    #[token("\"")]
+    Quotes,
     #[regex("[./_a-zA-Z][._0-9a-zA-Z/]*", |lex| lex.slice().to_string())]
     PathContent(String),
 }

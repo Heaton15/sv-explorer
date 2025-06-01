@@ -13,6 +13,7 @@ extern {
     "v" => Token::V,
     "y" => Token::Y,
     "=" => Token::Equals,
+    "\"" => Token::Quotes,
   }
 }
 pub Command: Command = {
@@ -20,6 +21,9 @@ pub Command: Command = {
         Command::Define {define: key, arg: None}
     },
     "define" <key:"path"> "=" <value:"path"> => {
+        Command::Define {define: key, arg: Some(value)}
+    },
+    "define" <key:"path"> "=" "\""<value:"path">"\"" => {
         Command::Define {define: key, arg: Some(value)}
     },
     "incdir" <path:"path"> => {
