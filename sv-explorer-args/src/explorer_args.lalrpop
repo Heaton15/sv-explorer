@@ -25,4 +25,10 @@ pub Command: Command = {
     "incdir" <path:"path"> => {
         Command::Include {directory: path}
     },
+    "v" <path:"path"> => {
+        Command::V {file: path}
+    },
+    "y" <path:"path"> => {
+        Command::Y {directory: path}
+    },
 }

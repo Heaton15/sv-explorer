@@ -8,6 +8,8 @@ lalrpop_mod!(pub explorer_args);
 pub enum Command {
     Define { define: String, arg: Option<String> },
     Include { directory: String },
+    V { file: String },
+    Y { directory: String },
 }
 
 pub type CommandParseError = ParseError<(), Token, ArgumentError>;
@@ -50,6 +52,26 @@ mod ast_tests {
         assert_eq!(
             result,
             Command::Include {
+                directory: "../../path/to/dir/".to_string(),
+            }
+        );
+    }
+    #[test]
+    fn parse_v() {
+        let result = parse("-v ../../path/to/file.sv").unwrap();
+        assert_eq!(
+            result,
+            Command::V {
+                file: "../../path/to/file.sv".to_string(),
+            }
+        );
+    }
+    #[test]
+    fn parse_y() {
+        let result = parse("-y ../../path/to/dir/").unwrap();
+        assert_eq!(
+            result,
+            Command::Y {
                 directory: "../../path/to/dir/".to_string(),
             }
         );
