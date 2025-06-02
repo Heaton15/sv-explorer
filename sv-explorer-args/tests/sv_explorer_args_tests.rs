@@ -38,6 +38,7 @@ fn parse_filelist() {
             FileArgs {
                 file: "../sv/mult.sv".to_string(),
             },
+            FileArgs {file : "/generated-src/chipyard.to.SomeConfig/gen-collateral/FixedClockBroadcast_4.sv".to_string()}
         ],
     );
 }

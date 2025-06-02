@@ -23,7 +23,7 @@ pub enum Token {
     Equals,
     #[token("\"")]
     Quotes,
-    #[regex("[./_a-zA-Z][._0-9a-zA-Z/]*", |lex| lex.slice().to_string())]
+    #[regex("[./_a-zA-Z][._0-9a-zA-Z/-]*", |lex| lex.slice().to_string())]
     PathContent(String),
 }
 
