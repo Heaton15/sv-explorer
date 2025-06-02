@@ -47,6 +47,10 @@ impl<'input> Lexer<'input> {
 }
 
 // TODO: Reimplement the iterator for this lexer
+// TODO: error = ArgumentError can be replaced with extras = SomeEnum, where a field of SomeEnum
+//       is an error type of interest. This means that we can modify the Iterator below to throw the SomeEnum.error
+//       type instead of using the error = logos macro.
+
 impl<'input> Iterator for Lexer<'input> {
     type Item = Spanned<Token, usize, ArgumentError>;
 
